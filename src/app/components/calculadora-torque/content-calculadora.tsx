@@ -22,12 +22,6 @@ export const ContentCalculadoraTorque = () => {
   const [power, setPower] = useState<number>(0);
   const [current, setCurrent] = useState<number>(0);
   const [withMargin, setWithMargin] = useState<boolean>(false);
-  
-  const [diametroMotora, setDiametroMotora] = useState<number>(0);
-  const [diametroMovida, setDiametroMovida] = useState<number>(0);
-  const [distanciaEixos, setDistanciaEixos] = useState<number>(0);
-  const [comprimentoCorreia, setComprimentoCorreia] = useState<number>(0);
-  const [unidade, setUnidade] = useState<string>("mm");
 
   const calcularTorque = () => {
     const torque = torqueMotora * (relacaoMovida / relacaoMotora);
@@ -79,17 +73,6 @@ export const ContentCalculadoraTorque = () => {
     }
     setCurrent(parseFloat(corrente.toFixed(2)));
   };
-const calcularComprimentoCorreia = () => {
-  if (distanciaEixos > 0 && diametroMotora > 0 && diametroMovida > 0) {
-    const C = distanciaEixos;
-    const D1 = diametroMotora;
-    const D2 = diametroMovida;
-
-    const L = 2 * C + (Math.PI / 2) * (D1 + D2) + Math.pow(D2 - D1, 2) / (4 * C);
-    
-    setComprimentoCorreia(parseFloat(L.toFixed(2)));
-  }
-};
 
   const getActionButton = () => {
     switch (selectedTab) {
@@ -134,194 +117,220 @@ const calcularComprimentoCorreia = () => {
     }
   };
 
-return (
-  <div className="flex justify-center mt-16 lg:mt-36 mx-5">
-    <div className="max-w-4xl w-full rounded-lg shadow-lg lg:p-6">
-      <div className="flex justify-between border-b border-zinc-600 pb-4 mb-6">
-        <div className="flex gap-2 lg:gap-5">
-          <button
-            onClick={() => setSelectedTab("torque")}
-            className={`text-lg ${
-              selectedTab === "torque"
-                ? "font-semibold text-red-600"
-                : "text-gray-600"
-            } hover:text-red-600 text-base lg:text-xl`}
-          >
-            Torque
-          </button>
-          <button
-            onClick={() => setSelectedTab("conversao")}
-            className={`text-lg ${
-              selectedTab === "conversao"
-                ? "font-semibold text-red-600"
-                : "text-gray-600"
-            } hover:text-red-600 text-base lg:text-xl`}
-          >
-            Conversão
-          </button>
-          <button
-            onClick={() => setSelectedTab("rpm")}
-            className={`text-lg ${
-              selectedTab === "rpm"
-                ? "font-semibold text-red-600"
-                : "text-gray-600"
-            } hover:text-red-600 text-base lg:text-xl`}
-          >
-            RPM
-          </button>
-          <button
-            onClick={() => setSelectedTab("corrente")}
-            className={`text-lg ${
-              selectedTab === "corrente"
-                ? "font-semibold text-red-600"
-                : "text-gray-600"
-            } hover:text-red-600 text-base lg:text-xl`}
-          >
-            Corrente
-          </button>
-          <button
-            onClick={() => setSelectedTab("correia")}
-            className={`text-lg ${
-              selectedTab === "correia"
-                ? "font-semibold text-red-600"
-                : "text-gray-600"
-            } hover:text-red-600 text-base lg:text-xl`}
-          >
-            Correia
-          </button>
-        </div>
-        {getActionButton()}
-      </div>
-
-      {selectedTab === "torque" && (
-        <div>
-          <h2 className="text-xl font-semibold mb-5">
-            Torque na Polia Movida
-          </h2>
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <h3>Polia Motora (Nm):</h3>
-              <input
-                type="number"
-                value={torqueMotora}
-                onChange={(e) => setTorqueMotora(Number(e.target.value))}
-                placeholder="Torque na Polia Motora (Nm)"
-                className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <h3>Relação das Polias Motora:</h3>
-              <input
-                type="number"
-                value={relacaoMotora}
-                onChange={(e) => setRelacaoMotora(Number(e.target.value))}
-                placeholder="Relação Motora"
-                className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <h3>Relação das Polias Movida:</h3>
-              <input
-                type="number"
-                value={relacaoMovida}
-                onChange={(e) => setRelacaoMovida(Number(e.target.value))}
-                placeholder="Relação Movida"
-                className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-              />
-            </div>
-          </div>
-          <p className="text-lg mt-4">Torque Movida: {torqueMovida} Nm</p>
-        </div>
-      )}
-
-      {selectedTab === "conversao" && (
-        <div>
-          <h2 className="text-xl font-semibold mb-5">Conversão de Torque</h2>
-          <div className="flex flex-col gap-5">
-            <input
-              type="number"
-              value={valor}
-              onChange={(e) => setValor(Number(e.target.value))}
-              placeholder="Valor"
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-            />
-            <select
-              value={fromUnit}
-              onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+  return (
+    <div className="flex justify-center mt-16 lg:mt-36 mx-5">
+      <div className="max-w-4xl w-full rounded-lg shadow-lg lg:p-6">
+        <div className="flex justify-between border-b border-zinc-600 pb-4 mb-6">
+          <div className="flex gap-2 lg:gap-5">
+            <button
+              onClick={() => setSelectedTab("torque")}
+              className={`text-lg ${
+                selectedTab === "torque"
+                  ? "font-semibold text-red-600"
+                  : "text-gray-600"
+              } hover:text-red-600 text-base lg:text-xl`}
             >
-              <option value="Nm">Nm</option>
-              <option value="kgfm">kgfm</option>
-              <option value="kgfcm">kgf-cm</option>
-              <option value="Ncm">Ncm</option>
-            </select>
-            <select
-              value={toUnit}
-              onChange={(e) => setToUnit(e.target.value)}
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+              Torque
+            </button>
+            <button
+              onClick={() => setSelectedTab("conversao")}
+              className={`text-lg ${
+                selectedTab === "conversao"
+                  ? "font-semibold text-red-600"
+                  : "text-gray-600"
+              } hover:text-red-600 text-base lg:text-xl`}
             >
-              <option value="Nm">Nm</option>
-              <option value="kgfm">kgfm</option>
-              <option value="kgfcm">kgf-cm</option>
-              <option value="Ncm">Ncm</option>
-            </select>
-          </div>
-          <p className="text-lg mt-4">Resultado: {resultadoConversao}</p>
-        </div>
-      )}
-
-      {selectedTab === "correia" && (
-        <div>
-          <h2 className="text-xl font-semibold mb-5">
-            Cálculo do Comprimento da Correia
-          </h2>
-          <div className="flex flex-col gap-5">
-            <input
-              type="number"
-              value={diametroMotora}
-              onChange={(e) => setDiametroMotora(Number(e.target.value))}
-              placeholder="Diâmetro da Polia Motora"
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-            />
-            <input
-              type="number"
-              value={diametroMovida}
-              onChange={(e) => setDiametroMovida(Number(e.target.value))}
-              placeholder="Diâmetro da Polia Movida"
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-            />
-            <input
-              type="number"
-              value={distanciaEixos}
-              onChange={(e) => setDistanciaEixos(Number(e.target.value))}
-              placeholder="Distância entre eixos"
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
-            />
-            <select
-              value={unidade}
-              onChange={(e) => setUnidade(e.target.value)}
-              className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+              Conversão
+            </button>
+            <button
+              onClick={() => setSelectedTab("rpm")}
+              className={`text-lg ${
+                selectedTab === "rpm"
+                  ? "font-semibold text-red-600"
+                  : "text-gray-600"
+              } hover:text-red-600 text-base lg:text-xl`}
             >
-              <option value="mm">Milímetros (mm)</option>
-              <option value="cm">Centímetros (cm)</option>
-              <option value="m">Metros (m)</option>
-            </select>
+              RPM
+            </button>
+            <button
+              onClick={() => setSelectedTab("corrente")}
+              className={`text-lg ${
+                selectedTab === "corrente"
+                  ? "font-semibold text-red-600"
+                  : "text-gray-600"
+              } hover:text-red-600 text-base lg:text-xl`}
+            >
+              Corrente
+            </button>
           </div>
-          <p className="text-lg mt-4">
-            Comprimento da Correia: {comprimentoCorreia} {unidade}
-          </p>
-          <button
-            onClick={calcularComprimentoCorreia}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 mt-4"
-          >
-            Calcular
-          </button>
+          {getActionButton()}
         </div>
-      )}
-    </div>
-  </div>
-);
 
+        {selectedTab === "torque" && (
+          <div>
+            <h2 className="text-xl font-semibold mb-5">
+              Torque na Polia Movida
+            </h2>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-2">
+                <h3>Polia Motora (Nm):</h3>
+                <input
+                  type="number"
+                  value={torqueMotora}
+                  onChange={(e) => setTorqueMotora(Number(e.target.value))}
+                  placeholder="Torque na Polia Motora (Nm)"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>Relação das Polias Motora (Exemplo: 1):</h3>
+                <input
+                  type="number"
+                  value={relacaoMotora}
+                  onChange={(e) => setRelacaoMotora(Number(e.target.value))}
+                  placeholder="Relação Motora"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>Relação das Polias Movida (Exemplo: 8):</h3>
+                <input
+                  type="number"
+                  value={relacaoMovida}
+                  onChange={(e) => setRelacaoMovida(Number(e.target.value))}
+                  placeholder="Relação Movida"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+            </div>
+            <p className="text-lg mt-4">Torque Movida: {torqueMovida} Nm</p>
+          </div>
+        )}
+
+        {selectedTab === "conversao" && (
+          <div>
+            <h2 className="text-xl font-semibold mb-5">Conversão de Torque</h2>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-2">
+                <h3>Valor:</h3>
+                <input
+                  type="number"
+                  value={valor}
+                  onChange={(e) => setValor(Number(e.target.value))}
+                  placeholder="Valor"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>De:</h3>
+                <select
+                  value={fromUnit}
+                  onChange={(e) => setFromUnit(e.target.value)}
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                >
+                  <option value="Nm">Nm</option>
+                  <option value="kgfm">kgfm</option>
+                  <option value="kgfcm">kgf-cm</option>
+                  <option value="Ncm">Ncm</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>Para:</h3>
+                <select
+                  value={toUnit}
+                  onChange={(e) => setToUnit(e.target.value)}
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                >
+                  <option value="Nm">Nm</option>
+                  <option value="kgfm">kgfm</option>
+                  <option value="kgfcm">kgf-cm</option>
+                  <option value="Ncm">Ncm</option>
+                </select>
+              </div>
+            </div>
+            <p className="text-lg mt-4">Resultado: {resultadoConversao}</p>
+          </div>
+        )}
+
+        {selectedTab === "rpm" && (
+          <div>
+            <h2 className="text-xl font-semibold mb-5">Cálculo de RPM</h2>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-2">
+                <h3>RPM da Polia Motora:</h3>
+                <input
+                  type="number"
+                  value={rpmMotora}
+                  onChange={(e) => setRpmMotora(Number(e.target.value))}
+                  placeholder="RPM Motora"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>Relação das Polias Motora (Exemplo: 1):</h3>
+                <input
+                  type="number"
+                  value={relacaoMotora}
+                  onChange={(e) => setRelacaoMotora(Number(e.target.value))}
+                  placeholder="Relação Motora"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>Relação das Polias Movida (Exemplo: 8):</h3>
+                <input
+                  type="number"
+                  value={relacaoMovida}
+                  onChange={(e) => setRelacaoMovida(Number(e.target.value))}
+                  placeholder="Relação Movida"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+            </div>
+            <p className="text-lg mt-4">RPM Movida: {rpmMovida} rpm</p>
+          </div>
+        )}
+
+        {selectedTab === "corrente" && (
+          <div>
+            <h2 className="text-xl font-semibold mb-5">Cálculo de Corrente</h2>
+            <div className="flex flex-col gap-5 justify-center">
+              <div className="flex flex-col gap-2">
+                <h3>Voltagem (V):</h3>
+                <input
+                  type="number"
+                  value={voltage}
+                  onChange={(e) => setVoltage(Number(e.target.value))}
+                  placeholder="Tensão (V)"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3>Potência (W):</h3>
+                <input
+                  type="number"
+                  value={power}
+                  onChange={(e) => setPower(Number(e.target.value))}
+                  placeholder="Potência (W)"
+                  className="w-full p-2 mb-2 border border-zinc-600 rounded bg-[--background]"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="flex items-center mb-2">
+                  <input
+                    type="checkbox"
+                    checked={withMargin}
+                    onChange={(e) => setWithMargin(e.target.checked)}
+                    className="mr-2 bg-[--background] border border-zinc-600"
+                  />
+                  Calcular com folga de segurança
+                </label>
+              </div>
+            </div>
+            <p className="text-lg mt-4 border-zinc-600 border p-5 bg-zinc-900 max-w-64 relative items-center justify-center rounded-lg">
+              Corrente: {current} A
+            </p>
+          </div>
         )}
       </div>
     </div>
