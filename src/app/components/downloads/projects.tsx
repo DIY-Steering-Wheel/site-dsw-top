@@ -57,7 +57,7 @@ export const ProjectsDownloads = () => {
           title="DFU STM32 Uploader + Zadig Driver"
           updateHistory="N/A"
           credits="Desconhecido"
-          urlDownload="https://drive.google.com/uc?export=download&id=1IZzzUqz5h_zhboQ7iaM11kz57WxdiNVE"
+          urlDownload="https://drive.google.com/uc?export=download&id=1cLnIvUBaWs4XC-Uh8bom_lHw6QDuox2c"
         />
           <ProjectItemDownload
           title="DI View"
