@@ -1,25 +1,20 @@
 import Redirect from "@/app/lib/redirect";
 import { Logo } from "../images/logo";
+
 export const Header = () => {
   return (
-    <div className="w-full border-b border-[#262626] flex lg:mt-5 h-20 items-center justify-between bg-[--background] px-5  lg:px-10 py-4 gap-5 pointer-events-auto z-0">
+    <div className="z-0 flex h-20 w-full items-center justify-between gap-5 border-b border-[#262626] bg-[--background] px-5 py-4 lg:mt-5 lg:px-10">
       <Logo />
-      <nav className="flex items-center gap-4 text-[--text-highlights] -inset font-medium text-sm lg:text-lg">
+      <nav className="flex items-center gap-4 text-sm font-medium text-[--text-highlights] lg:text-lg">
         <Redirect
           href="/home"
-          className="hover:text-zinc-50 transition-all hover:brightness-75"
+          className="transition-all hover:brightness-75 hover:text-zinc-50"
         >
           Início
         </Redirect>
         <Redirect
-          href="/aprendiz"
-          className="hover:text-zinc-50 transition-all hover:brightness-75"
-        >
-          Aprendiz
-        </Redirect>
-        <Redirect
           href="/downloads"
-          className="hover:text-zinc-50 transition-all hover:brightness-75"
+          className="transition-all hover:brightness-75 hover:text-zinc-50"
         >
           Downloads
         </Redirect>
