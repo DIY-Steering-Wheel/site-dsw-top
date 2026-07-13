@@ -1,6 +1,5 @@
 "use client";
 
-import Redirect from "@/app/lib/redirect";
 import React, { useEffect, useRef, useState } from "react";
 
 interface GamepadInfo {
@@ -21,8 +20,7 @@ const FUDGE_FACTOR = 2;
 export const ContentGamepadTest = () => {
   const gamepadsByIndex = useRef<Record<number, GamepadInfo>>({});
   const [frameCount, setFrameCount] = useState<number>(0);
-  const requestRef = useRef<number>();
-  const isComponentMounted = useRef(true);
+  const requestRef = useRef<number | null>(null);
   const [gamepads, setGamepads] = useState<Record<number, Gamepad>>({});
   const [axesValues, setAxesValues] = useState<Record<number, number[]>>({});
   const [buttonStates, setButtonStates] = useState<
@@ -173,13 +171,6 @@ export const ContentGamepadTest = () => {
     }
   };
 
-  const animate = () => {
-    setFrameCount((prev) => (prev + 1) % 100);
-    addNewPads();
-    Object.values(gamepadsByIndex.current).forEach(processController);
-    requestRef.current = requestAnimationFrame(animate);
-  };
-
   useEffect(() => {
     let isActive = true;
     let isNavigating = false;
@@ -229,6 +220,8 @@ export const ContentGamepadTest = () => {
         cancelAnimationFrame(requestRef.current);
       }
     };
+  // The listeners are registered once on mount for this page.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-interface ButtonProps extends React.ComponentProps<"button"> {}
+type ButtonProps = React.ComponentProps<"button">;
 
 export default function Button({ children, ...props }: ButtonProps) {
   return (
