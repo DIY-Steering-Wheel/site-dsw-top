@@ -8,7 +8,7 @@ Versao estatica em HTML puro com Bootstrap do site DSW.
 - `calculadora-torque.html`: calculadora com torque, conversao, RPM e corrente
 - `app.js`: logica em JavaScript puro, incluindo consulta de releases no GitHub
 - `styles.css`: estilos customizados sobre o Bootstrap
-- `public/`: imagens, icones e PDFs usados no site
+- `publicu/`: imagens, icones e PDFs usados no site
 - `old site/`: arquivos da implementacao antiga em Next.js arquivados
 
 ## Como usar

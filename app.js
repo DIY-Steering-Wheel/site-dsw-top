@@ -52,42 +52,42 @@ const pdfEntries = [
   {
     title: "Esquema de ligacao do drive BTS 7960",
     description: "Ligacao do driver BTS 7960 com EMC Lite, DSW Lite e DSW Wheel.",
-    file: "public/Esquema%20de%20liga%C3%A7%C3%A3o%20do%20drive%20bts%207960%20emc-lite%20,%20DSW%20lite%20e%20DSW%20Wheel.pdf",
+    file: "publicu/Esquema%20de%20liga%C3%A7%C3%A3o%20do%20drive%20bts%207960%20emc-lite%20,%20DSW%20lite%20e%20DSW%20Wheel.pdf",
   },
   {
     title: "Porta USB caida no Arduino",
     description: "Solucao possivel para recuperar placas com a porta USB danificada.",
-    file: "public/Porta%20USB%20ca%C3%ADda%20no%20%20ardu%C3%ADno.pdf",
+    file: "publicu/Porta%20USB%20ca%C3%ADda%20no%20%20ardu%C3%ADno.pdf",
   },
   {
     title: "Esquema chave de luz Volkswagen",
     description: "Material de apoio citado nos videos e montagens.",
-    file: "public/chave_luz_vw.pdf",
+    file: "publicu/chave_luz_vw.pdf",
   },
   {
     title: "Qual STM escolher",
     description: "Guia rapido com o posicionamento da DSW para escolher STM32.",
-    file: "public/Qual%20STM%20escolher%20%20%281%29.pdf",
+    file: "publicu/Qual%20STM%20escolher%20%20%281%29.pdf",
   },
   {
     title: "Como utilizar XLoader",
     description: "Passo a passo para usar XLoader e resolver travamentos no Arduino.",
-    file: "public/Como%20utilizar%20x%20loader%20e%20como%20resolver%20travamento%20do%20ardu%C3%ADno.pdf",
+    file: "publicu/Como%20utilizar%20x%20loader%20e%20como%20resolver%20travamento%20do%20ardu%C3%ADno.pdf",
   },
   {
     title: "Especificacoes dos motores RS",
     description: "Parametros superficiais de motores RS 555, 775, 895 e 997.",
-    file: "public/895%20low%20speed.pdf",
+    file: "publicu/895%20low%20speed.pdf",
   },
   {
     title: "Como fazer um volante com encoder e FFB",
     description: "Guia introdutorio para montar um volante com ou sem force feedback.",
-    file: "public/Como%20fazer%20um%20volante%20com%20Encoder%20e%20ffb%20ou%20sem.pdf",
+    file: "publicu/Como%20fazer%20um%20volante%20com%20Encoder%20e%20ffb%20ou%20sem.pdf",
   },
   {
     title: "Sensor hall analogico",
     description: "Artigo sobre ligacao eletrica, montagem e uso de sensores hall.",
-    file: "public/Sensor%20hall%20Anal%C3%B3gico.pdf",
+    file: "publicu/Sensor%20hall%20Anal%C3%B3gico.pdf",
   },
 ];
 
