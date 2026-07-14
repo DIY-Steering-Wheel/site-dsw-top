@@ -1,21 +1,22 @@
-# DSW-Wheel
-A Modern Platform for DIY Steering Wheel.
+# DSW Wheel
+Versao estatica em HTML puro com Bootstrap do site DSW.
 
-## Technologies
-- **Frontend**
-- Next.js
-- TypeScript
-- Tailwind CSS
+## Estrutura
+- `index.html`: pagina inicial
+- `downloads.html`: programas atuais, PDFs e programas legados
+- `gamepad-test.html`: teste online de controles
+- `calculadora-torque.html`: calculadora com torque, conversao, RPM e corrente
+- `app.js`: logica em JavaScript puro, incluindo consulta de releases no GitHub
+- `styles.css`: estilos customizados sobre o Bootstrap
+- `public/`: imagens, icones e PDFs usados no site
+- `old site/`: arquivos da implementacao antiga em Next.js arquivados
 
-1. Install dependencies:
+## Como usar
+1. Abra `index.html` no navegador.
+2. Para a integracao com GitHub funcionar sem restricoes de CORS locais, prefira servir a pasta com um servidor estatico simples.
 
-```bash
-npm install
-```
-
-2. Start the development server:
-
-```bash
-npm run dev
-```
-4. Open your browser and visit http://localhost:3000 to see the app.
+## Stack
+- HTML5
+- Bootstrap 5
+- CSS3
+- JavaScript

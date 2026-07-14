@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Torque | DSW Wheel</title>
+    <meta
+      name="description"
+      content="Calculadora DSW com torque, conversao, RPM e corrente."
+    />
+    <link rel="icon" href="public/logo.svg" type="image/svg+xml" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="calculator">
+    <nav class="navbar navbar-expand-lg site-navbar border-bottom border-secondary-subtle sticky-top">
+      <div class="container py-2">
+        <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-semibold" href="index.html">
+          <img src="public/logo.svg" alt="DSW Wheel" width="42" height="42" />
+          <span>DSW Wheel</span>
+        </a>
+        <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Alternar navegacao">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto gap-lg-2">
+            <li class="nav-item"><a class="nav-link text-white-50" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link text-white-50" href="downloads.html">Downloads</a></li>
+            <li class="nav-item"><a class="nav-link text-white-50" href="gamepad-test.html">Gamepad Test</a></li>
+            <li class="nav-item"><a class="nav-link text-white active-link" href="calculadora-torque.html">Calculadora</a></li>
+            <li class="nav-item"><a class="nav-link text-white-50" href="serial-monitor.html">Monitor Serial</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="py-4">
+      <div class="container py-lg-3">
+        <section class="hero-panel p-4 p-lg-5 mb-4">
+          <span class="section-kicker">Calculadora DSW</span>
+          <h1 class="display-6 fw-bold mt-2 mb-3">Torque, conversao, RPM e corrente</h1>
+          <p class="text-white-50 mb-0">
+            Recriei a ferramenta online com as quatro abas principais da versao anterior,
+            agora em JavaScript puro.
+          </p>
+        </section>
+
+        <section class="calculator-shell">
+          <div class="calculator-tabs nav nav-pills mb-4" id="calc-tabs">
+            <button class="nav-link active" data-tab="torque" type="button">Torque</button>
+            <button class="nav-link" data-tab="conversao" type="button">Conversao</button>
+            <button class="nav-link" data-tab="rpm" type="button">RPM</button>
+            <button class="nav-link" data-tab="corrente" type="button">Corrente</button>
+          </div>
+
+          <div id="calc-panels">
+            <section class="calc-panel active" data-panel="torque">
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <label class="form-label">Torque na polia motora (Nm)</label>
+                  <input id="torqueMotora" class="form-control dark-input" type="number" value="0" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Relacao da polia motora</label>
+                  <input id="relacaoMotoraTorque" class="form-control dark-input" type="number" value="1" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Relacao da polia movida</label>
+                  <input id="relacaoMovidaTorque" class="form-control dark-input" type="number" value="1" />
+                </div>
+              </div>
+              <div class="mt-4 d-flex flex-wrap gap-3 align-items-center">
+                <button id="calcTorqueBtn" class="btn btn-danger px-4" type="button">Calcular</button>
+                <div class="result-box">Torque movida: <strong id="torqueResultado">0.00 Nm</strong></div>
+              </div>
+            </section>
+
+            <section class="calc-panel" data-panel="conversao">
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <label class="form-label">Valor</label>
+                  <input id="valorConversao" class="form-control dark-input" type="number" value="0" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">De</label>
+                  <select id="fromUnit" class="form-select dark-input">
+                    <option value="Nm">Nm</option>
+                    <option value="kgfm">kgfm</option>
+                    <option value="kgfcm">kgf-cm</option>
+                    <option value="Ncm">Ncm</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Para</label>
+                  <select id="toUnit" class="form-select dark-input">
+                    <option value="Nm">Nm</option>
+                    <option value="kgfm">kgfm</option>
+                    <option value="kgfcm">kgf-cm</option>
+                    <option value="Ncm">Ncm</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-4 d-flex flex-wrap gap-3 align-items-center">
+                <button id="calcConversaoBtn" class="btn btn-danger px-4" type="button">Converter</button>
+                <div class="result-box">Resultado: <strong id="conversaoResultado">0.00</strong></div>
+              </div>
+            </section>
+
+            <section class="calc-panel" data-panel="rpm">
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <label class="form-label">RPM da polia motora</label>
+                  <input id="rpmMotora" class="form-control dark-input" type="number" value="0" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Relacao da polia motora</label>
+                  <input id="relacaoMotoraRpm" class="form-control dark-input" type="number" value="1" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Relacao da polia movida</label>
+                  <input id="relacaoMovidaRpm" class="form-control dark-input" type="number" value="1" />
+                </div>
+              </div>
+              <div class="mt-4 d-flex flex-wrap gap-3 align-items-center">
+                <button id="calcRpmBtn" class="btn btn-danger px-4" type="button">Calcular</button>
+                <div class="result-box">RPM movida: <strong id="rpmResultado">0.00 rpm</strong></div>
+              </div>
+            </section>
+
+            <section class="calc-panel" data-panel="corrente">
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <label class="form-label">Voltagem (V)</label>
+                  <input id="voltage" class="form-control dark-input" type="number" value="0" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Potencia (W)</label>
+                  <input id="power" class="form-control dark-input" type="number" value="0" />
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                  <div class="form-check form-switch">
+                    <input id="withMargin" class="form-check-input" type="checkbox" role="switch" />
+                    <label class="form-check-label" for="withMargin">Calcular com folga de seguranca</label>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 d-flex flex-wrap gap-3 align-items-center">
+                <button id="calcCorrenteBtn" class="btn btn-danger px-4" type="button">Calcular</button>
+                <div class="result-box">Corrente: <strong id="correnteResultado">0.00 A</strong></div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="py-4 border-top border-secondary-subtle">
+      <div class="container text-center text-white-50">
+        <p class="mb-0">&copy; 2025 DSW by Valdemir. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
